@@ -1,0 +1,53 @@
+.container-custom1 {
+  height: 60%;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin: 0;
+}
+.container-custom2 {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  margin-right: 25px;
+  margin-left: 25px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+#chart1_input {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+#drop-list {
+  height: 40px;
+  margin-top: 20px;
+}
+
+#uni-slider {
+  float: right;
+  margin-left: 20%;
+}
+
+#table {
+  margin-top: 25%;
+  margin-right: 100px;
+}
+
+#table-school {
+  width: 150px;
+}
+
+.options_box {
+  background-color: aliceblue;
+  height: 500px;
+  width: 500px;
+}

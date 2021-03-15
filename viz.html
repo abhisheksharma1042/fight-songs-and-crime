@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Fight Songs & Crime</title>
+    <meta name="description"
+        content="Analysis of University songs as to how many tropes(list specified in UI) they contain and probability of a student experiencing either a violent or property crime on a campus.">
+    <link rel="stylesheet" href="assets/css/custom-style.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link href="assets/css/nouislider.css" rel="stylesheet">
+    <script src="assets/js/d3.js"></script>
+    <script src="assets/js/nouislider.js"></script>
+    <script src="assets/js/wNumb.js"></script>
+
+<body>
+    <div class="options_box">
+
+    </div>
+    <div class="container-custom1 container">
+        <div id="chart1_input">
+            <!-- Default dropright button -->
+            <div id="drop-list" class="btn-group dropright">
+                <button id="curr-selection" type="button" class="btn btn-secondary dropdown-toggle"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropright
+                </button>
+                <div id="drop-menu" class="dropdown-menu">
+                    <!-- Dropdown menu links -->
+                </div>
+            </div>
+        </div>
+        <span id="barchart1"></span>
+        <span id="uni-slider"></span>
+    </div>
+
+    <div class="container-custom2">
+        <span id="barchart2">
+
+        </span>
+        <div>
+            <span id="barchart3">
+
+            </span>
+            <span id="table" style="float: right">
+                <table>
+                    <tr>
+                        <td>School: </td>
+                        <td id="table-school"></td>
+                    </tr>
+                    <tr>
+                        <td>Violent crime: </td>
+                        <td id="table-violent"></td>
+                    </tr>
+                    <tr>
+                        <td>Property crime: </td>
+                        <td id="table-property"></td>
+                    </tr>
+
+                </table>
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <!-- <script src="assets/js/script.min.js"></script> -->
+    <script src="assets/js/crimes.js"></script>
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/fight-songs.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
