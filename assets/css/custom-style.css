@@ -50,4 +50,6 @@
   background-color: aliceblue;
   height: 500px;
   width: 500px;
+  float: left;
+  display: inline-flex;
 }
