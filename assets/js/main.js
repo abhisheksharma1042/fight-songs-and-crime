@@ -669,7 +669,7 @@ function makeChart2() {
 
 function checkTrope(d, i) {
   let currTrope = currTropes[i].t;
-  console.log(currTrope);
+  // console.log(currTrope);
   switch (currTrope) {
     case 'fight':
       if (d.fight === 'Yes') {
