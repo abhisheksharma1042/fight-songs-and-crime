@@ -8,6 +8,11 @@ var legend = {
   color: d3.color('#bbf1fa'),
 };
 
+var order = [
+  { t: 'ascending', state: 'on' },
+  { t: 'descending', state: 'off' },
+];
+
 var tropes = [
   { t: 'fight', state: 'on' },
   { t: 'victory', state: 'on' },
@@ -30,6 +35,7 @@ let highlightBox = '#e7e6e1';
 let radius = 7;
 let highlight_color = '#e45826';
 currSchool = 'Arizona';
+currOrder = 'ascending';
 chart1 = { height: 400, width: 800, color: d3.color('#51adcf') };
 
 chart2 = {
@@ -45,6 +51,9 @@ chart3 = {
   colorY: d3.color('#ffe05d'),
   colorN: d3.color('#51adcf'),
 };
+
+lowerIndx = 7;
+upperIndx = 14;
 
 var b = null;
 var selected;
@@ -66,15 +75,30 @@ brush.on('brush', updateBrush).on('end', updateBrush);
 
 // brush.on('start', cleanupChart);
 
-function cleanupChart() {
-  chart1Svg.selectAll('rect').remove();
-  chart1Svg.selectAll('g').remove();
-  chart1Svg.selectAll('text').remove();
-  chart2Svg.selectAll('rect').remove();
-  chart2Svg.selectAll('g').remove();
-  chart2Svg.selectAll('text').remove();
-  // chart3Svg.selectAll('circle').remove();
-  // chart3Svg.selectAll('g').remove();
+function cleanupChart(which) {
+  if (which === 'both') {
+    chart1Svg.selectAll('rect').remove();
+    chart1Svg.selectAll('g').remove();
+    chart1Svg.selectAll('text').remove();
+    chart2Svg.selectAll('rect').remove();
+    chart2Svg.selectAll('g').remove();
+    chart2Svg.selectAll('text').remove();
+  } else if (which === 'one') {
+    chart1Svg.selectAll('rect').remove();
+    chart1Svg.selectAll('g').remove();
+    chart1Svg.selectAll('text').remove();
+  } else if (which === 'two') {
+    chart2Svg.selectAll('rect').remove();
+    chart2Svg.selectAll('g').remove();
+    chart2Svg.selectAll('text').remove();
+  } else if (which === 'three') {
+    chart3Svg.selectAll('circle').remove();
+    chart3Svg.selectAll('g').remove();
+  } else if (which === 'slider') {
+    sliderSvg.selectAll('rect').remove();
+    sliderSvg.selectAll('g').remove();
+    sliderSvg.selectAll('text').remove();
+  }
 }
 
 d3.select('#curr-selection').html(currSchool);
@@ -126,8 +150,65 @@ chart1Svg = d3.selectAll('#barchart1').select('svg');
 chart2Svg = d3.selectAll('#barchart2').select('svg');
 chart3Svg = d3.selectAll('#barchart3').select('svg');
 sliderSvg = d3.selectAll('#uni-slider').select('svg');
+
+// Adding Trope Picker
+
+d3.selectAll('#trope-picker')
+  .selectAll('option')
+  .data(tropes)
+  .enter()
+  .append('option')
+  .classed('trope-option', true)
+  .attr('val', (d, i) => {
+    return i;
+  })
+  .attr('selected', (d) => {
+    return d.state === 'on';
+  })
+  .html((d) => {
+    return d.t;
+  });
+d3.selectAll('#trope-picker').on('change', tropeClicked);
+
+d3.selectAll('#order-picker')
+  .selectAll('option')
+  .data(order)
+  .enter()
+  .append('option')
+  .classed('order-option', true)
+  .attr('val', (d, i) => {
+    return i;
+  })
+  .html((d) => {
+    return d.t;
+  });
+d3.selectAll('#order-picker').on('change', reOrder);
+
 makeSlider();
 makeChart3();
+
+function tropeClicked(event) {
+  let currTropes = $('#trope-picker').val();
+
+  for (i in tropes) {
+    if (currTropes.includes(tropes[i].t)) {
+      tropes[i].state = 'on';
+    } else {
+      tropes[i].state = 'off';
+    }
+  }
+  cleanupChart('two');
+  makeChart2();
+}
+
+function reOrder() {
+  currOrder = $('#order-picker').val();
+  cleanupChart('one');
+  // cleanupChart('slider');
+  makeSlider();
+  makeChart1();
+}
+
 function changedSelection() {
   let sel = d3.select(this);
   currSchool = sel.data()[0].school;
@@ -229,8 +310,8 @@ function onBrush() {
     var x1 = b[0];
     var x2 = b[1];
 
-    var lowerIndx = Math.round(xSliderScale.invert(d3.min([x1, x2]))) - 1;
-    var upperIndx = Math.round(xSliderScale.invert(d3.max([x1, x2]))) - 1;
+    lowerIndx = Math.round(xSliderScale.invert(d3.min([x1, x2]))) - 1;
+    upperIndx = Math.round(xSliderScale.invert(d3.max([x1, x2]))) - 1;
 
     // console.log(lowerIndx + '   ' + upperIndx);
   }
@@ -255,7 +336,12 @@ function onBrush() {
 
   // selected and notSelected are d3 selections, write code to set their
   // attributes as per the assignment specification.
-  selected.transition().attr('stroke', highlightStroke).attr('stroke-width', 2);
+  selected
+    .transition()
+    .duration(750)
+    .delay((d, i) => i * 20)
+    .attr('stroke', highlightStroke)
+    .attr('stroke-width', 2);
 
   notSelected.transition().attr('stroke', 'black').attr('stroke-width', 1);
 }
@@ -273,7 +359,7 @@ function findbyname(name) {
 function updateBrush(event) {
   b = event.selection;
   onBrush();
-  cleanupChart();
+  cleanupChart('both');
   makeChart1();
   makeChart2();
 
@@ -283,6 +369,23 @@ function updateBrush(event) {
 }
 
 function makeSlider() {
+  sliderSvg.selectAll('rect').remove();
+  sliderSvg.selectAll('g').remove();
+  sliderSvg.selectAll('text').remove();
+  sliderSvg.selectAll('brush').remove();
+
+  let temp = data;
+  if (currOrder === order[0].t) {
+    temp.sort(function (a, b) {
+      return parseInt(a.trope_count) - parseInt(b.trope_count);
+    });
+  } else {
+    temp.sort(function (a, b) {
+      return parseInt(b.trope_count) - parseInt(a.trope_count);
+    });
+    console.log('sorting descending');
+  }
+
   ySliderScale = d3
     .scaleLinear()
     .domain([0, maxTrope])
@@ -294,7 +397,7 @@ function makeSlider() {
   sliderSvg
     .append('g')
     .selectAll('rect')
-    .data(data)
+    .data(temp)
     .enter()
     .append('rect')
     .classed('slider-bar', true)
@@ -312,7 +415,7 @@ function makeSlider() {
 
   sliderSvg
     .selectAll('text')
-    .data(data)
+    .data(temp)
     .enter()
     .append('text')
     .attr('font-size', '.5em')
@@ -338,8 +441,10 @@ function makeSlider() {
     .attr('fill', 'none')
     .attr('stroke', 'black');
 
-  sliderSvg.append('g').call(brush).call(brush.move, [7, 14].map(xSliderScale));
-
+  sliderSvg
+    .append('g')
+    .call(brush)
+    .call(brush.move, [lowerIndx + 1, upperIndx + 1].map(xSliderScale));
   // d3.selectAll('.handle').remove();
   sliderSvg
     .selectAll('.slider-bar')
@@ -356,6 +461,17 @@ function makeChart1() {
   if (selected === undefined) {
     return;
   }
+  let temp = selected.data();
+  if (currOrder === order[0].t) {
+    temp.sort(function (a, b) {
+      return parseInt(a.trope_count) - parseInt(b.trope_count);
+    });
+  } else {
+    temp.sort(function (a, b) {
+      return parseInt(b.trope_count) - parseInt(a.trope_count);
+    });
+  }
+
   ychart1Scale = d3
     .scaleLinear()
     .domain([minTrope, maxTrope])
@@ -365,23 +481,21 @@ function makeChart1() {
 
   xchart1Scale = d3
     .scaleLinear()
-    .domain([0, selected.data().length - 1])
+    .domain([0, temp.length - 1])
     .range([
       margin.left,
       chart1.width -
         margin.right -
-        (chart1.width - margin.left - margin.right) / selected.data().length,
+        (chart1.width - margin.left - margin.right) / temp.length,
     ]);
+
   chart1Svg
     .append('g')
     .selectAll('rect')
-    .data(selected.data())
+    .data(temp)
     .enter()
     .append('rect')
-    .attr(
-      'width',
-      (chart1.width - margin.left - margin.right) / selected.data().length
-    )
+    .attr('width', (chart1.width - margin.left - margin.right) / temp.length)
     .attr('x', (d, i) => {
       return xchart1Scale(i);
     })
@@ -397,7 +511,7 @@ function makeChart1() {
 
   chart1Svg
     .selectAll('text')
-    .data(selected.data())
+    .data(temp)
     .enter()
     .append('text')
     .attr('font-size', '1em')
@@ -437,6 +551,8 @@ function makeChart1() {
     .attr('y', '1em')
     .style('text-anchor', 'middle')
     .text(`${'Trope count'}`);
+
+  chart1Svg.selectAll('text').raise();
 }
 
 function makeChart2() {
