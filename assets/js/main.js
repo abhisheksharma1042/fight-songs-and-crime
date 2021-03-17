@@ -203,10 +203,11 @@ function tropeClicked(event) {
 
 function reOrder() {
   currOrder = $('#order-picker').val();
-  cleanupChart('one');
+  cleanupChart('both');
   // cleanupChart('slider');
   makeSlider();
   makeChart1();
+  makeChart2();
 }
 
 function changedSelection() {
@@ -559,8 +560,19 @@ function makeChart2() {
   if (selected === undefined) {
     return;
   }
+  let temp = selected.data();
+  if (currOrder === order[0].t) {
+    temp.sort(function (a, b) {
+      return parseInt(a.trope_count) - parseInt(b.trope_count);
+    });
+  } else {
+    temp.sort(function (a, b) {
+      return parseInt(b.trope_count) - parseInt(a.trope_count);
+    });
+  }
+
   let count = 0;
-  let currTropes = d3.filter(tropes, (d) => {
+  currTropes = d3.filter(tropes, (d) => {
     if (d.state === 'on') return true;
     return false;
   });
@@ -582,17 +594,17 @@ function makeChart2() {
 
   xchart2Scale = d3
     .scaleLinear()
-    .domain([0, selected.data().length - 1])
+    .domain([0, temp.length - 1])
     .range([m.left, chart2.width - m.right - 10]);
 
   for (idx in currTropes) {
     chart2Svg
       .append('g')
       .selectAll('rect')
-      .data(selected.data())
+      .data(temp)
       .enter()
       .append('rect')
-      .attr('width', (chart2.width - m.left - m.right) / selected.data().length)
+      .attr('width', (chart2.width - m.left - m.right) / temp.length)
       .attr('x', (d, i) => {
         return xchart2Scale(i);
       })
@@ -615,7 +627,7 @@ function makeChart2() {
   chart2Svg
     .append('g')
     .selectAll('text')
-    .data(selected.data())
+    .data(temp)
     .enter()
     .append('text')
     .attr('font-size', '0.8em')
@@ -656,7 +668,8 @@ function makeChart2() {
 }
 
 function checkTrope(d, i) {
-  let currTrope = tropes[i].t;
+  let currTrope = currTropes[i].t;
+  console.log(currTrope);
   switch (currTrope) {
     case 'fight':
       if (d.fight === 'Yes') {
