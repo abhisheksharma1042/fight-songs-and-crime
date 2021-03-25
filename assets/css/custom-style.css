@@ -1,5 +1,5 @@
 .container-custom1 {
-  height: 60%;
+  height: 55%;
   width: 100%;
   display: flex;
   position: relative;
@@ -29,12 +29,13 @@ body {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 #drop-list {
   height: 40px;
   margin-top: 20px;
+  margin-left: 50px;
 }
 
 #uni-slider {
@@ -53,28 +54,25 @@ body {
 
 .options_box {
   background-color: aliceblue;
-  height: 500px;
+  height: 300px;
   width: 500px;
   position: absolute;
-  right: 25%;
-  top: 150px;
+  /* display: inline; */
+  left: 70%;
+  top: 100px;
 }
 
 @media only screen and (max-width: 1500px) {
   .options_box {
-    position: relative;
-    top: 1%;
-    left: 28%;
-    right: 25%;
-    margin-bottom: 10px;
+    position: absolute;
+
+    height: 150px;
   }
 }
 
-@media only screen and (max-width: 1800px) {
+@media only screen and (max-width: 1200px) {
   .options_box {
-    top: 150px;
-    right: 15%;
-    margin-bottom: 10px;
+    margin-left: 10%;
   }
 }
 

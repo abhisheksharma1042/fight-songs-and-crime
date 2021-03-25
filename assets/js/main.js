@@ -1,4 +1,4 @@
-var margin = { top: 50, bottom: 50, right: 50, left: 50 };
+var margin = { top: 10, bottom: 40, right: 50, left: 50 };
 var m = { top: 100, bottom: 90, right: 50, left: 70 };
 var m3 = { top: 100, bottom: 90, right: 70, left: 50 };
 var legend = {
