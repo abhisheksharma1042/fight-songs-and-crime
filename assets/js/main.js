@@ -306,6 +306,7 @@ function changedSelection() {
 
 function onBrush() {
   let allRects = sliderSvg.selectAll('rect');
+  let allCircles = chart3Svg.selectAll('circle');
 
   if (b != null) {
     var x1 = b[0];
@@ -319,6 +320,17 @@ function onBrush() {
 
   // Selection filter function
   function isSelected(d, i) {
+    // write this.
+
+    if (i < upperIndx && i >= lowerIndx) {
+      return true;
+    }
+
+    return false;
+  }
+
+  // Selection filter function
+  function isSelectedCircle(d, i) {
     // write this.
 
     if (i < upperIndx && i >= lowerIndx) {
@@ -345,6 +357,29 @@ function onBrush() {
     .attr('stroke-width', 2);
 
   notSelected.transition().attr('stroke', 'black').attr('stroke-width', 1);
+
+  let sele = allCircles.filter((d, i) => {
+    return isSelectedCircle(d, i);
+  });
+  notSelected = allCircles.filter(function (d, i) {
+    return !isSelectedCircle(d, i);
+  });
+
+  sele
+    .transition()
+    .duration(750)
+    .delay((d, i) => i * 20)
+    .attr('fill-opacity', 1)
+    .attr('stroke-width', 2)
+    .attr('stroke', 'red');
+
+  notSelected
+    .transition()
+    .duration(750)
+    .delay((d, i) => i * 20)
+    .attr('fill-opacity', 0.5)
+    .attr('stroke-width', 0.5)
+    .attr('stroke', 'black');
 }
 
 function findbyname(name) {
@@ -504,7 +539,7 @@ function makeChart1() {
       return ychart1Scale(d.trope_count);
     })
     .attr('height', (d, i) => {
-      return chart1.height - ychart1Scale(d.trope_count) - 50;
+      return chart1.height - ychart1Scale(d.trope_count) - 40;
     })
     .attr('fill', chart1.color.toString())
     .attr('stroke-width', 0.5)
