@@ -1,5 +1,7 @@
 # Fight-Songs-and-Crime
 
+#
+
 # Crime Data
 
 I used a data set that was based off of crime data published by the FBI, Andrew Hurst published an articles with his analysis on the data the methodology used is explainned below:
@@ -27,6 +29,10 @@ Attributed to Andrew Hurst
 ### Reference: https://www.valuepenguin.com/2020/02/which-colleges-and-universities-have-most-crime
 
 ##
+
+#
+
+#
 
 # Song Data
 
@@ -64,6 +70,10 @@ Column definitions:
 
 ### Reference: https://github.com/fivethirtyeight/data/tree/master/fight-songs
 
+#
+
+#
+
 # Intersection of the data sets
 
 `data.js` contains the intersection of the two data sets with a total of 21 schools.
@@ -76,9 +86,21 @@ Column definitions:
 | `violent`                                                              | Probability of a student experiencing a `violent` crime over a period of 4 years  |
 | `property`                                                             | Probability of a student experiencing a `property` crime over a period of 4 years |
 
+#
+
+#
+
 # Interaction
 
-- Sorting data in ascending/descending order based on trope count
-- Brush selection can be changed to include all the data values or a subset which will be reflected on all charts
-- Selection of a school highlights the school in all charts
+- Sorting data in ascending/descending order based on trope count.
+- Brush selection can be changed to include all the data values or a subset which will be reflected on all charts.
+- Selection of a school highlights the school in all charts.
 - For the scatter plot hovering on a data point reveals the values associated with it annd higlights it.
+- Tropes can be added or removed from the heatmap.
+- Spotify links are playable.
+
+#
+
+# Conclusion
+
+I did not find any corelation between the crime and song data sets. Even though it seems on the surface that this conclusion isn't the most interesting but one could argue that this visualization is evidence for the lack of correlation. From my prespective the lack of correaltion is a positive.
