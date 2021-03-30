@@ -4,7 +4,7 @@
 
 # Crime Data
 
-I used a data set that was based off of crime data published by the FBI, Andrew Hurst published an articles with his analysis on the data the methodology used is explainned below:
+I used a data set that was based off of crime statistics for college campuses published by the FBI. Andrew Hurst, data anlayst and writer at Value Penguin, published an article with his analysis on the data. The methodology he used is quoted below:
 
 "For this study, we analyzed crime data published by the FBI. We checked four data tables in the series "Offenses Known to Law Enforcement, by State by University and College" corresponding to 2015 through 2018.
 
@@ -36,7 +36,7 @@ Attributed to Andrew Hurst
 
 # Song Data
 
-The data set was dowloaded from fivethirtyeight github repository.
+The data set was dowloaded from fivethirtyeight github repository. The git repository states:
 
 "Data about fight songs from all schools in the Power Five conferences — the ACC, Big Ten, Big 12, Pac-12 and SEC — plus Notre Dame. Some schools have more than one fight song, and some of the songs sanctioned as “official” by their schools aren’t the ones that fans sing out. We chose the songs that seemed best-known and best-loved. We also limited our analysis to the lyrics sung most regularly and also published by the school, so some verses were not included in the analysis. The tempo and length information come from the version of the song we chose from those available on Spotify."
 
@@ -103,4 +103,4 @@ Column definitions:
 
 # Conclusion
 
-I did not find any corelation between the crime and song data sets. Even though it seems on the surface that this conclusion isn't the most interesting but one could argue that this visualization is evidence for the lack of correlation. From my prespective the lack of correaltion is a positive.
+I did not find any corelation between the crime and song data sets. Even though it seems on the surface that this conclusion isn't the most compelling, one could argue that this visualization is evidence for the lack of correlation. From my prespective the lack of correaltion is a positive outcome from the visualization.
